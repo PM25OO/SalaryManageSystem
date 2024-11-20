@@ -11,7 +11,7 @@ DEPS = teacher.h
 OBJ = main.o functions.o
 
 # 可执行文件名称
-EXEC = teacher_manager.exe
+EXEC = salary_manager.exe
 
 # 默认目标
 all: $(EXEC)
