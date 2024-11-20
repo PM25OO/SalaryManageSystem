@@ -4,45 +4,47 @@
 #include "teacher.h"
 
 // 输入教师信息
-void inputTeacher() {
-    if (teacherCount >= MAX_TEACHERS) {
+void inputTeacher()
+{
+    if (teacherCount >= MAX_TEACHERS)
+    {
         printf("教师数量已达到最大限制。\n");
         return;
     }
     Teacher t;
-    printf("输入教师ID: ");
+    printf("\n输入 教师ID: ");
     fgets(t.teacherID, sizeof(t.teacherID), stdin);
     t.teacherID[strcspn(t.teacherID, "\n")] = 0;
 
-    printf("输入姓名: ");
+    printf("输入 姓名: ");
     fgets(t.name, sizeof(t.name), stdin);
     t.name[strcspn(t.name, "\n")] = 0;
 
-    printf("输入性别: ");
+    printf("输入 性别: ");
     fgets(t.gender, sizeof(t.gender), stdin);
     t.gender[strcspn(t.gender, "\n")] = 0;
 
-    printf("输入部门: ");
+    printf("输入 部门: ");
     fgets(t.department, sizeof(t.department), stdin);
     t.department[strcspn(t.department, "\n")] = 0;
 
-    printf("输入地址: ");
+    printf("输入 地址: ");
     fgets(t.address, sizeof(t.address), stdin);
     t.address[strcspn(t.address, "\n")] = 0;
 
-    printf("输入电话: ");
+    printf("输入 电话: ");
     fgets(t.phone, sizeof(t.phone), stdin);
     t.phone[strcspn(t.phone, "\n")] = 0;
 
-    printf("输入基本工资: ");
+    printf("输入 基本工资: ");
     scanf("%lf", &t.baseSalary);
     getchar();
 
-    printf("输入津贴: ");
+    printf("输入 津贴: ");
     scanf("%lf", &t.allowance);
     getchar();
 
-    printf("输入补贴: ");
+    printf("输入 补贴: ");
     scanf("%lf", &t.subsidy);
     getchar();
 
@@ -52,14 +54,17 @@ void inputTeacher() {
 }
 
 // 修改教师信息
-void modifyTeacher() {
+void modifyTeacher()
+{
     char id[20];
-    printf("输入要修改的教师ID: ");
+    printf("\n输入要修改的教师ID: ");
     fgets(id, sizeof(id), stdin);
     id[strcspn(id, "\n")] = 0;
 
-    for (int i = 0; i < teacherCount; i++) {
-        if (strcmp(teachers[i].teacherID, id) == 0) {
+    for (int i = 0; i < teacherCount; i++)
+    {
+        if (strcmp(teachers[i].teacherID, id) == 0)
+        {
             printf("修改姓名 (%s): ", teachers[i].name);
             fgets(teachers[i].name, sizeof(teachers[i].name), stdin);
             teachers[i].name[strcspn(teachers[i].name, "\n")] = 0;
@@ -101,15 +106,19 @@ void modifyTeacher() {
 }
 
 // 删除教师信息
-void deleteTeacher() {
+void deleteTeacher()
+{
     char id[20];
-    printf("输入要删除的教师ID: ");
+    printf("\n输入要删除的教师ID: ");
     fgets(id, sizeof(id), stdin);
     id[strcspn(id, "\n")] = 0;
 
-    for (int i = 0; i < teacherCount; i++) {
-        if (strcmp(teachers[i].teacherID, id) == 0) {
-            for (int j = i; j < teacherCount - 1; j++) {
+    for (int i = 0; i < teacherCount; i++)
+    {
+        if (strcmp(teachers[i].teacherID, id) == 0)
+        {
+            for (int j = i; j < teacherCount - 1; j++)
+            {
                 teachers[j] = teachers[j + 1];
             }
             teacherCount--;
@@ -121,14 +130,17 @@ void deleteTeacher() {
 }
 
 // 浏览教师信息
-void viewTeachers() {
-    if (teacherCount == 0) {
+void viewTeachers()
+{
+    if (teacherCount == 0)
+    {
         printf("暂无教师信息。\n");
         return;
     }
-    printf("教师列表:\n");
+    printf("\n教师列表:\n");
     printf("ID\t姓名\t性别\t部门\t地址\t电话\t总工资\n");
-    for (int i = 0; i < teacherCount; i++) {
+    for (int i = 0; i < teacherCount; i++)
+    {
         printf("%s\t%s\t%s\t%s\t%s\t%s\t%.2lf\n",
                teachers[i].teacherID,
                teachers[i].name,
@@ -138,10 +150,12 @@ void viewTeachers() {
                teachers[i].phone,
                teachers[i].totalSalary);
     }
+    getchar();
 }
 
 // 计算工资
-void calculateSalary(Teacher *t) {
+void calculateSalary(Teacher *t)
+{
     t->phoneFee = 50.0;
     t->utilityFee = 100.0;
     t->rent = 200.0;
@@ -154,15 +168,18 @@ void calculateSalary(Teacher *t) {
 }
 
 // 保存数据到CSV文件
-void saveToFile() {
+void saveToFile()
+{
     FILE *fp = fopen("teachers.csv", "w");
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("无法打开文件保存数据。\n");
         return;
     }
     // 写入CSV头
     fprintf(fp, "ID,姓名,性别,部门,地址,电话,基本工资,津贴,补贴,总工资,净工资\n");
-    for (int i = 0; i < teacherCount; i++) {
+    for (int i = 0; i < teacherCount; i++)
+    {
         fprintf(fp, "%s,%s,%s,%s,%s,%s,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf\n",
                 teachers[i].teacherID,
                 teachers[i].name,
@@ -181,58 +198,74 @@ void saveToFile() {
 }
 
 // 从CSV文件读取数据
-void readFromFile() {
+void readFromFile()
+{
     FILE *fp = fopen("teachers.csv", "r");
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("没有找到数据文件，开始新建。\n");
         return;
     }
     char line[512];
     // 读取CSV头
-    if (fgets(line, sizeof(line), fp) == NULL) {
+    if (fgets(line, sizeof(line), fp) == NULL)
+    {
         fclose(fp);
         printf("数据文件为空。\n");
         return;
     }
     // 逐行读取教师数据
-    while (fgets(line, sizeof(line), fp)) {
-        if (teacherCount >= MAX_TEACHERS) {
+    while (fgets(line, sizeof(line), fp))
+    {
+        if (teacherCount >= MAX_TEACHERS)
+        {
             printf("教师数量已达到最大限制，后续数据将被忽略。\n");
             break;
         }
         Teacher t;
         char *token = strtok(line, ",");
-        if (token != NULL) strcpy(t.teacherID, token);
+        if (token != NULL)
+            strcpy(t.teacherID, token);
 
         token = strtok(NULL, ",");
-        if (token != NULL) strcpy(t.name, token);
+        if (token != NULL)
+            strcpy(t.name, token);
 
         token = strtok(NULL, ",");
-        if (token != NULL) strcpy(t.gender, token);
+        if (token != NULL)
+            strcpy(t.gender, token);
 
         token = strtok(NULL, ",");
-        if (token != NULL) strcpy(t.department, token);
+        if (token != NULL)
+            strcpy(t.department, token);
 
         token = strtok(NULL, ",");
-        if (token != NULL) strcpy(t.address, token);
+        if (token != NULL)
+            strcpy(t.address, token);
 
         token = strtok(NULL, ",");
-        if (token != NULL) strcpy(t.phone, token);
+        if (token != NULL)
+            strcpy(t.phone, token);
 
         token = strtok(NULL, ",");
-        if (token != NULL) t.baseSalary = atof(token);
+        if (token != NULL)
+            t.baseSalary = atof(token);
 
         token = strtok(NULL, ",");
-        if (token != NULL) t.allowance = atof(token);
+        if (token != NULL)
+            t.allowance = atof(token);
 
         token = strtok(NULL, ",");
-        if (token != NULL) t.subsidy = atof(token);
+        if (token != NULL)
+            t.subsidy = atof(token);
 
         token = strtok(NULL, ",");
-        if (token != NULL) t.totalSalary = atof(token);
+        if (token != NULL)
+            t.totalSalary = atof(token);
 
         token = strtok(NULL, ",\n");
-        if (token != NULL) t.netSalary = atof(token);
+        if (token != NULL)
+            t.netSalary = atof(token);
 
         teachers[teacherCount++] = t;
     }
