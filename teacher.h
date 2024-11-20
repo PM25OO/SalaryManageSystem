@@ -40,5 +40,6 @@ void viewTeachers();
 void calculateSalary(Teacher *t);
 void saveToFile();
 void readFromFile();
+void YuanShen();
 
 #endif // TEACHER_H

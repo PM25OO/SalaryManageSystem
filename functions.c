@@ -48,9 +48,26 @@ void inputTeacher()
     scanf("%lf", &t.subsidy);
     getchar();
 
+    printf("输入 电话费: ");
+    scanf("%lf", &t.phoneFee);
+    getchar();
+
+    printf("输入 水电费: ");
+    scanf("%lf", &t.utilityFee);
+    getchar();
+
+    printf("输入 房租: ");
+    scanf("%lf", &t.rent);
+    getchar();
+
+    printf("输入 卫生费: ");
+    scanf("%lf", &t.hygieneFee);
+    getchar();
+
     calculateSalary(&t);
     teachers[teacherCount++] = t;
     printf("教师信息已添加。\n");
+    getchar();
 }
 
 // 修改教师信息
@@ -65,44 +82,61 @@ void modifyTeacher()
     {
         if (strcmp(teachers[i].teacherID, id) == 0)
         {
+            char input[100];
+
             printf("修改姓名 (%s): ", teachers[i].name);
-            fgets(teachers[i].name, sizeof(teachers[i].name), stdin);
-            teachers[i].name[strcspn(teachers[i].name, "\n")] = 0;
-
+            fgets(input, sizeof(input), stdin);
+            if (input[0] != '\n') {
+                input[strcspn(input, "\n")] = 0;
+                strncpy(teachers[i].name, input, sizeof(teachers[i].name));
+            }
             printf("修改性别 (%s): ", teachers[i].gender);
-            fgets(teachers[i].gender, sizeof(teachers[i].gender), stdin);
-            teachers[i].gender[strcspn(teachers[i].gender, "\n")] = 0;
-
+            fgets(input, sizeof(input), stdin);
+            if (input[0] != '\n') {
+                input[strcspn(input, "\n")] = 0;
+                strncpy(teachers[i].gender, input, sizeof(teachers[i].gender));
+            }
             printf("修改部门 (%s): ", teachers[i].department);
-            fgets(teachers[i].department, sizeof(teachers[i].department), stdin);
-            teachers[i].department[strcspn(teachers[i].department, "\n")] = 0;
-
+            fgets(input, sizeof(input), stdin);
+            if (input[0] != '\n') {
+                input[strcspn(input, "\n")] = 0;
+                strncpy(teachers[i].department, input, sizeof(teachers[i].department));
+            }
             printf("修改地址 (%s): ", teachers[i].address);
-            fgets(teachers[i].address, sizeof(teachers[i].address), stdin);
-            teachers[i].address[strcspn(teachers[i].address, "\n")] = 0;
-
+            fgets(input, sizeof(input), stdin);
+            if (input[0] != '\n') {
+                input[strcspn(input, "\n")] = 0;
+                strncpy(teachers[i].address, input, sizeof(teachers[i].address));
+            }
             printf("修改电话 (%s): ", teachers[i].phone);
-            fgets(teachers[i].phone, sizeof(teachers[i].phone), stdin);
-            teachers[i].phone[strcspn(teachers[i].phone, "\n")] = 0;
-
+            fgets(input, sizeof(input), stdin);
+            if (input[0] != '\n') {
+                input[strcspn(input, "\n")] = 0;
+                strncpy(teachers[i].phone, input, sizeof(teachers[i].phone));
+            }
             printf("修改基本工资 (%.2lf): ", teachers[i].baseSalary);
-            scanf("%lf", &teachers[i].baseSalary);
-            getchar();
-
+            fgets(input, sizeof(input), stdin);
+            if (input[0] != '\n') {
+                teachers[i].baseSalary = atof(input);
+            }
             printf("修改津贴 (%.2lf): ", teachers[i].allowance);
-            scanf("%lf", &teachers[i].allowance);
-            getchar();
-
+            fgets(input, sizeof(input), stdin);
+            if (input[0] != '\n') {
+                teachers[i].allowance = atof(input);
+            }
             printf("修改补贴 (%.2lf): ", teachers[i].subsidy);
-            scanf("%lf", &teachers[i].subsidy);
-            getchar();
-
+            fgets(input, sizeof(input), stdin);
+            if (input[0] != '\n') {
+                teachers[i].subsidy = atof(input);
+            }
             calculateSalary(&teachers[i]);
             printf("教师信息已更新。\n");
+            getchar();
             return;
         }
     }
     printf("未找到教师ID。\n");
+    getchar();
 }
 
 // 删除教师信息
@@ -123,10 +157,12 @@ void deleteTeacher()
             }
             teacherCount--;
             printf("教师信息已删除。\n");
+            getchar();
             return;
         }
     }
     printf("未找到教师ID。\n");
+    getchar();
 }
 
 // 浏览教师信息
@@ -135,18 +171,19 @@ void viewTeachers()
     if (teacherCount == 0)
     {
         printf("暂无教师信息。\n");
+        getchar();
         return;
     }
     
     // 打印表头，使用指定宽度对齐
     printf("\n教师列表:\n");
-    printf("%-10s %-10s %-10s %-30s %-15s %-15s %-10s\n", 
-           "ID", "姓名", "性别", "部门", "地址", "电话", "总工资");
+    printf("%-10s %-10s %-10s %-40s %-15s %-15s %-10s\n", 
+           "ID", "姓名", "性别", "部门", "地址", "电话", "实发工资");
     
     // 打印每个教师的信息，保证每列宽度一致
     for (int i = 0; i < teacherCount; i++)
     {
-        printf("%-10s %-10s %-10s %-30s %-15s %-15s %-10.2f\n", 
+        printf("%-10s %-10s %-10s %-40s %-15s %-15s %-10.2f\n", 
                teachers[i].teacherID,
                teachers[i].name,
                teachers[i].gender,
@@ -155,7 +192,21 @@ void viewTeachers()
                teachers[i].phone,
                teachers[i].totalSalary);
     }
-
+    char id[20];
+    printf("\n输入要查看详情的教师ID: ");
+    fgets(id, sizeof(id), stdin);
+    id[strcspn(id, "\n")] = 0;
+    for (int i = 0; i < teacherCount; i++)
+    {
+        if (strcmp(teachers[i].teacherID, id) == 0)
+        {
+            printf("员工 %s 本月合计扣款 %.2f 元，其中电话费 %.2f 元，水电费 %.2f 元，卫生费 %.2f 元，房租 %.2f 元。\n",
+            teachers[i].name,teachers[i].totalDeductions,teachers[i].phoneFee,teachers[i].utilityFee,teachers[i].hygieneFee,teachers[i].rent);
+            getchar();
+            return;
+        }
+    }
+    printf("未找到教师ID。\n");
     getchar();
 }
 
@@ -163,14 +214,11 @@ void viewTeachers()
 // 计算工资
 void calculateSalary(Teacher *t)
 {
-    t->phoneFee = 50.0;
-    t->utilityFee = 100.0;
-    t->rent = 200.0;
-    t->incomeTax = 0.1 * (t->baseSalary + t->allowance + t->subsidy);
-    t->hygieneFee = 30.0;
-    t->providentFund = 0.05 * (t->baseSalary + t->allowance + t->subsidy);
-    t->totalDeductions = t->incomeTax + t->hygieneFee + t->providentFund;
-    t->totalSalary = t->baseSalary + t->allowance + t->subsidy - t->totalDeductions;
+    double gross = t->baseSalary + t->allowance + t->subsidy;
+    t->incomeTax = 0.1 * gross;
+    t->providentFund = 0.05 * gross;
+    t->totalDeductions = t->incomeTax + t->hygieneFee + t->providentFund + t->phoneFee + t->utilityFee + t->rent;
+    t->totalSalary = gross - t->totalDeductions;
     t->netSalary = t->totalSalary;
 }
 
@@ -184,10 +232,10 @@ void saveToFile()
         return;
     }
     // 写入CSV头
-    fprintf(fp, "ID,姓名,性别,部门,地址,电话,基本工资,津贴,补贴,总工资,净工资\n");
+    fprintf(fp, "ID,姓名,性别,部门,地址,电话,基本工资,津贴,补贴,总工资,净工资,电话费,水电费,卫生费,房租\n");
     for (int i = 0; i < teacherCount; i++)
     {
-        fprintf(fp, "%s,%s,%s,%s,%s,%s,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf\n",
+        fprintf(fp, "%s,%s,%s,%s,%s,%s,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf,%.2lf\n",
                 teachers[i].teacherID,
                 teachers[i].name,
                 teachers[i].gender,
@@ -198,7 +246,11 @@ void saveToFile()
                 teachers[i].allowance,
                 teachers[i].subsidy,
                 teachers[i].totalSalary,
-                teachers[i].netSalary);
+                teachers[i].netSalary,
+                teachers[i].phoneFee,
+                teachers[i].utilityFee,
+                teachers[i].hygieneFee,
+                teachers[i].rent);
     }
     fclose(fp);
     printf("数据已保存到 teachers.csv。\n");
@@ -233,27 +285,33 @@ void readFromFile()
         Teacher t;
         char *token = strtok(line, ",");
         if (token != NULL)
-            strcpy(t.teacherID, token);
+            strncpy(t.teacherID, token, sizeof(t.teacherID) - 1);
+        t.teacherID[sizeof(t.teacherID) - 1] = '\0';
 
         token = strtok(NULL, ",");
         if (token != NULL)
-            strcpy(t.name, token);
+            strncpy(t.name, token, sizeof(t.name) - 1);
+        t.name[sizeof(t.name) - 1] = '\0';
 
         token = strtok(NULL, ",");
         if (token != NULL)
-            strcpy(t.gender, token);
+            strncpy(t.gender, token, sizeof(t.gender) - 1);
+        t.gender[sizeof(t.gender) - 1] = '\0';
 
         token = strtok(NULL, ",");
         if (token != NULL)
-            strcpy(t.department, token);
+            strncpy(t.department, token, sizeof(t.department) - 1);
+        t.department[sizeof(t.department) - 1] = '\0';
 
         token = strtok(NULL, ",");
         if (token != NULL)
-            strcpy(t.address, token);
+            strncpy(t.address, token, sizeof(t.address) - 1);
+        t.address[sizeof(t.address) - 1] = '\0';
 
         token = strtok(NULL, ",");
         if (token != NULL)
-            strcpy(t.phone, token);
+            strncpy(t.phone, token, sizeof(t.phone) - 1);
+        t.phone[sizeof(t.phone) - 1] = '\0';
 
         token = strtok(NULL, ",");
         if (token != NULL)
@@ -271,12 +329,32 @@ void readFromFile()
         if (token != NULL)
             t.totalSalary = atof(token);
 
-        token = strtok(NULL, ",\n");
+        token = strtok(NULL, ",");
         if (token != NULL)
             t.netSalary = atof(token);
+
+        token = strtok(NULL, ",");
+        if (token != NULL)
+            t.phoneFee = atof(token);
+
+        token = strtok(NULL, ",");
+        if (token != NULL)
+            t.utilityFee = atof(token);
+
+        token = strtok(NULL, ",");
+        if (token != NULL)
+            t.hygieneFee = atof(token);
+
+        token = strtok(NULL, ",\n");
+        if (token != NULL)
+            t.rent = atof(token);
 
         teachers[teacherCount++] = t;
     }
     fclose(fp);
     printf("数据已从 teachers.csv 加载。\n");
+}
+
+void YuanShen(){
+    printf("原神，启动！\n");
 }

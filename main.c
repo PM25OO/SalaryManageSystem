@@ -46,7 +46,39 @@ int main()
             saveToFile();
             break;
         case 0:
-            printf("退出系统。\n");
+        {
+            char confirm;
+            printf("是否保存修改？（y/n）：");
+            if (scanf(" %c", &confirm) != 1)
+            {
+                printf("输入无效，将不保存修改。\n");
+            }
+            else
+            {
+                if (confirm == 'y' || confirm == 'Y')
+                {
+                    saveToFile();
+                    printf("数据已保存，退出系统。\n");
+                }
+                else
+                {
+                    printf("不保存修改，退出系统。\n");
+                }
+            }
+            getchar(); // 清空缓冲区
+            break;
+        }
+        case 114514:
+            YuanShen();
+            #ifdef _WIN32
+                #include <windows.h>
+                Sleep(500);
+                system("start https://example.com");
+            #elif __linux__
+                #include <unistd.h>
+                sleep(1);
+                system("xdg-open https://example.com");
+            #endif
             break;
         default:
             printf("无效选项！\n");
