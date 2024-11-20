@@ -1,0 +1,34 @@
+# 忽略编译生成的文件
+*.o
+*.exe
+*.out
+*.a
+*.so
+*.dll
+*.csv
+
+# 忽略备份文件
+*.bak
+*.tmp
+*.swp
+
+# 忽略 IDE 和编辑器生成的文件
+.vscode/
+*.code-workspace
+*.DS_Store
+.idea/
+*.iml
+
+# 忽略日志文件
+*.log
+
+# 忽略调试信息
+*.dSYM/
+*.stackdump
+
+# 忽略 Makefile 自动生成的依赖文件
+*.d
+
+# 忽略某些特定平台的文件
+Thumbs.db
+desktop.ini
