@@ -137,11 +137,16 @@ void viewTeachers()
         printf("暂无教师信息。\n");
         return;
     }
+    
+    // 打印表头，使用指定宽度对齐
     printf("\n教师列表:\n");
-    printf("ID\t姓名\t性别\t部门\t地址\t电话\t总工资\n");
+    printf("%-10s %-10s %-10s %-30s %-15s %-15s %-10s\n", 
+           "ID", "姓名", "性别", "部门", "地址", "电话", "总工资");
+    
+    // 打印每个教师的信息，保证每列宽度一致
     for (int i = 0; i < teacherCount; i++)
     {
-        printf("%s\t%s\t%s\t%s\t%s\t%s\t%.2lf\n",
+        printf("%-10s %-10s %-10s %-30s %-15s %-15s %-10.2f\n", 
                teachers[i].teacherID,
                teachers[i].name,
                teachers[i].gender,
@@ -150,8 +155,10 @@ void viewTeachers()
                teachers[i].phone,
                teachers[i].totalSalary);
     }
+
     getchar();
 }
+
 
 // 计算工资
 void calculateSalary(Teacher *t)
@@ -195,6 +202,7 @@ void saveToFile()
     }
     fclose(fp);
     printf("数据已保存到 teachers.csv。\n");
+    getchar();
 }
 
 // 从CSV文件读取数据
