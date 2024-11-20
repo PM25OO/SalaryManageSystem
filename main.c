@@ -73,11 +73,11 @@ int main()
             #ifdef _WIN32
                 #include <windows.h>
                 Sleep(500);
-                system("start https://example.com");
+                system("start https://ys.mihoyo.com/");
             #elif __linux__
                 #include <unistd.h>
                 sleep(1);
-                system("xdg-open https://example.com");
+                system("xdg-open https://ys.mihoyo.com/");
             #endif
             break;
         default:
