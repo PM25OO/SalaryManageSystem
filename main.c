@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "teacher.h"
+#ifdef _WIN32
+    #include <windows.h>  
+#else
+    #include <unistd.h>  
+#endif
+
 int teacherCount = 0;
 Teacher teachers[MAX_TEACHERS];
 
@@ -71,15 +77,12 @@ int main()
         case 114514:
             YuanShen();
             #ifdef _WIN32
-                #include <windows.h>
                 Sleep(500);
                 system("start https://ys.mihoyo.com/");
             #elif __linux__
-                #include <unistd.h>
                 sleep(1);
                 system("xdg-open https://ys.mihoyo.com/");
             #endif
-            break;
         default:
             printf("无效选项！\n");
             getchar();
