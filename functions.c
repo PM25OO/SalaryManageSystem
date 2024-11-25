@@ -200,7 +200,7 @@ void viewTeachers()
     {
         if (strcmp(teachers[i].teacherID, id) == 0)
         {
-            printf("员工 %s 本月合计扣款 %.2f 元，其中电话费 %.2f 元，水电费 %.2f 元，卫生费 %.2f 元，房租 %.2f 元。\n",
+            printf("员工 %s 本月合计扣款 %.2lf 元，其中电话费 %.2f 元，水电费 %.2f 元，卫生费 %.2f 元，房租 %.2f 元。\n",
             teachers[i].name,teachers[i].totalDeductions,teachers[i].phoneFee,teachers[i].utilityFee,teachers[i].hygieneFee,teachers[i].rent);
             getchar();
             return;
@@ -231,6 +231,7 @@ void saveToFile()
         printf("无法打开文件保存数据。\n");
         return;
     }
+
     // 写入CSV头
     fprintf(fp, "ID,姓名,性别,部门,地址,电话,基本工资,津贴,补贴,总工资,净工资,电话费,水电费,卫生费,房租\n");
     for (int i = 0; i < teacherCount; i++)
@@ -266,6 +267,7 @@ void readFromFile()
         printf("没有找到数据文件，开始新建。\n");
         return;
     }
+
     char line[512];
     // 读取CSV头
     if (fgets(line, sizeof(line), fp) == NULL)

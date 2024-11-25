@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include "teacher.h"
 #ifdef _WIN32
     #include <windows.h>  
+    #include <io.h>
+    #include <fcntl.h>
 #else
     #include <unistd.h>  
+    #include <locale.h>
 #endif
 
 int teacherCount = 0;
@@ -13,6 +17,7 @@ Teacher teachers[MAX_TEACHERS];
 
 int main()
 {
+
     int choice;
     readFromFile(); // 启动时从文件加载数据
     do
