@@ -1,4 +1,3 @@
-// teacher.h
 #ifndef TEACHER_H
 #define TEACHER_H
 
