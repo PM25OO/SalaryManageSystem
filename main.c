@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <locale.h>
 #include "teacher.h"
 #ifdef _WIN32
     #include <windows.h>  
-    #include <io.h>
-    #include <fcntl.h>
 #else
     #include <unistd.h>  
     #include <locale.h>
@@ -20,8 +17,11 @@ int main()
 
     int choice;
     readFromFile(); // 启动时从文件加载数据
+
     do
     {
+        ClearScreen();
+        printAsciiArt();
         printf("\n教师工资管理系统\n\n");
         printf("1. 输入教师信息\n");
         printf("2. 修改教师信息\n");

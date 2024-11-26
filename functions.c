@@ -360,3 +360,23 @@ void readFromFile()
 void YuanShen(){
     printf("原神，启动！\n");
 }
+
+void ClearScreen(){
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
+void printAsciiArt()
+{
+    printf(" _    _   _____   _       _____   _____  ___  ___  _____ \n");
+    printf("| |  | | |  ___| | |     /  __ \\ |  _  | |  \\/  | |  ___|\n");
+    printf("| |  | | | |__   | |     | /  \\/ | | | | | .  . | | |__  \n");
+    printf("| |/\\| | |  __|  | |     | |     | | | | | |\\/| | |  __| \n");
+    printf("\\  /\\  / | |____ | |____ | \\__/\\ | |_| | | |  | | | |____ \n");
+    printf(" \\/  \\/  \\_____/ \\_____/  \\____/  \\___/  \\_|  |_/ \\_____/ \n");
+    printf("                                                         \n");
+    printf("                                                         \n");
+}
