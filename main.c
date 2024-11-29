@@ -3,10 +3,10 @@
 #include <string.h>
 #include "teacher.h"
 #ifdef _WIN32
-    #include <windows.h>  
+#include <windows.h>
 #else
-    #include <unistd.h>  
-    #include <locale.h>
+#include <unistd.h>
+#include <locale.h>
 #endif
 
 int teacherCount = 0;
@@ -81,13 +81,13 @@ int main()
         }
         case 114514:
             YuanShen();
-            #ifdef _WIN32
-                Sleep(500);
-                system("start https://ys.mihoyo.com/");
-            #elif __linux__
-                sleep(1);
-                system("xdg-open https://ys.mihoyo.com/");
-            #endif
+#ifdef _WIN32
+            Sleep(500);
+            system("start https://ys.mihoyo.com/");
+#elif __linux__
+            sleep(1);
+            system("xdg-open https://ys.mihoyo.com/");
+#endif
         default:
             printf("无效选项！\n");
             getchar();

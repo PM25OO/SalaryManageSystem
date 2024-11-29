@@ -86,47 +86,55 @@ void modifyTeacher()
 
             printf("修改姓名 (%s): ", teachers[i].name);
             fgets(input, sizeof(input), stdin);
-            if (input[0] != '\n') {
+            if (input[0] != '\n')
+            {
                 input[strcspn(input, "\n")] = 0;
                 strncpy(teachers[i].name, input, sizeof(teachers[i].name));
             }
             printf("修改性别 (%s): ", teachers[i].gender);
             fgets(input, sizeof(input), stdin);
-            if (input[0] != '\n') {
+            if (input[0] != '\n')
+            {
                 input[strcspn(input, "\n")] = 0;
                 strncpy(teachers[i].gender, input, sizeof(teachers[i].gender));
             }
             printf("修改部门 (%s): ", teachers[i].department);
             fgets(input, sizeof(input), stdin);
-            if (input[0] != '\n') {
+            if (input[0] != '\n')
+            {
                 input[strcspn(input, "\n")] = 0;
                 strncpy(teachers[i].department, input, sizeof(teachers[i].department));
             }
             printf("修改地址 (%s): ", teachers[i].address);
             fgets(input, sizeof(input), stdin);
-            if (input[0] != '\n') {
+            if (input[0] != '\n')
+            {
                 input[strcspn(input, "\n")] = 0;
                 strncpy(teachers[i].address, input, sizeof(teachers[i].address));
             }
             printf("修改电话 (%s): ", teachers[i].phone);
             fgets(input, sizeof(input), stdin);
-            if (input[0] != '\n') {
+            if (input[0] != '\n')
+            {
                 input[strcspn(input, "\n")] = 0;
                 strncpy(teachers[i].phone, input, sizeof(teachers[i].phone));
             }
             printf("修改基本工资 (%.2lf): ", teachers[i].baseSalary);
             fgets(input, sizeof(input), stdin);
-            if (input[0] != '\n') {
+            if (input[0] != '\n')
+            {
                 teachers[i].baseSalary = atof(input);
             }
             printf("修改津贴 (%.2lf): ", teachers[i].allowance);
             fgets(input, sizeof(input), stdin);
-            if (input[0] != '\n') {
+            if (input[0] != '\n')
+            {
                 teachers[i].allowance = atof(input);
             }
             printf("修改补贴 (%.2lf): ", teachers[i].subsidy);
             fgets(input, sizeof(input), stdin);
-            if (input[0] != '\n') {
+            if (input[0] != '\n')
+            {
                 teachers[i].subsidy = atof(input);
             }
             calculateSalary(&teachers[i]);
@@ -174,7 +182,7 @@ void viewTeachers()
         getchar();
         return;
     }
-    
+
     // 打印表头，使用指定宽度对齐
     const char *headers[] = {"ID", "姓名", "性别", "部门", "地址", "电话", "实发工资", "实际收入"};
     int columnWidths[] = {10, 20, 10, 40, 15, 15, 20, 20};
@@ -182,49 +190,63 @@ void viewTeachers()
 
     // 打印表头
     printf("\n教师列表:\n");
-    for (int i = 0; i < columnCount; i++) {
+    for (int i = 0; i < columnCount; i++)
+    {
         print_left_aligned(headers[i], columnWidths[i]);
     }
     printf("\n");
 
     // 打印分隔线
-    for (int i = 0; i < columnCount; i++) {
-        for (int j = 0; j < columnWidths[i]; j++) {
+    for (int i = 0; i < columnCount; i++)
+    {
+        for (int j = 0; j < columnWidths[i]; j++)
+        {
             putchar('-');
         }
     }
     printf("\n");
-    
+
     // 打印每个教师的信息，保证每列宽度一致
-    for (int i = 0; i < teacherCount; i++) {
+    for (int i = 0; i < teacherCount; i++)
+    {
         print_left_aligned(teachers[i].teacherID, 10);
         print_left_aligned(teachers[i].name, 20);
         print_left_aligned(teachers[i].gender, 10);
         print_left_aligned(teachers[i].department, 40);
         print_left_aligned(teachers[i].address, 15);
         print_left_aligned(teachers[i].phone, 15);
-        printf("%-20.2f %-20.2f\n", 
-               teachers[i].baseSalary + teachers[i].allowance + teachers[i].subsidy, 
+        printf("%-20.2f %-20.2f\n",
+               teachers[i].baseSalary + teachers[i].allowance + teachers[i].subsidy,
                teachers[i].totalSalary);
     }
-    char id[20];
-    printf("\n输入要查看详情的教师ID: ");
-    fgets(id, sizeof(id), stdin);
-    id[strcspn(id, "\n")] = 0;
-    for (int i = 0; i < teacherCount; i++)
-    {
-        if (strcmp(teachers[i].teacherID, id) == 0)
-        {
-            printf("员工 %s 本月合计扣款 %.2lf 元，其中电话费 %.2f 元，水电费 %.2f 元，卫生费 %.2f 元，房租 %.2f 元。\n",
-            teachers[i].name,teachers[i].totalDeductions,teachers[i].phoneFee,teachers[i].utilityFee,teachers[i].hygieneFee,teachers[i].rent);
-            getchar();
-            return;
+    while (1) {
+        char id[20];
+        int found = 0; // 标志变量
+        printf("\n输入要查看详情的教师ID: ");
+        fgets(id, sizeof(id), stdin);
+        id[strcspn(id, "\n")] = 0; // 移除换行符
+        // 判断是否是回车退出
+        if (strlen(id) == 0) {
+            printf("已退出查询。\n");
+            break;
+        }
+        // 查找教师信息
+        for (int i = 0; i < teacherCount; i++) {
+            if (strcmp(teachers[i].teacherID, id) == 0) {
+                found = 1; // 找到教师
+                printf("员工 %s 本月合计扣款 %.2lf 元，其中电话费 %.2f 元，水电费 %.2f 元，卫生费 %.2f 元，房租 %.2f 元。\n",
+                       teachers[i].name, teachers[i].totalDeductions, teachers[i].phoneFee, teachers[i].utilityFee,
+                       teachers[i].hygieneFee, teachers[i].rent);
+                break;
+            }
+        }
+        if (!found) {
+            printf("未找到教师ID。\n");
         }
     }
-    printf("未找到教师ID。\n");
+
     getchar();
 }
-
 
 // 计算工资
 void calculateSalary(Teacher *t)
@@ -365,6 +387,7 @@ void readFromFile()
         token = strtok(NULL, ",\n");
         if (token != NULL)
             t.rent = atof(token);
+        calculateSalary(&t);
 
         teachers[teacherCount++] = t;
     }
@@ -372,16 +395,18 @@ void readFromFile()
     printf("数据已从 teachers.csv 加载。\n");
 }
 
-void YuanShen(){
+void YuanShen()
+{
     printf("原神，启动！\n");
 }
 
-void ClearScreen(){
-    #ifdef _WIN32
-        system("cls");
-    #else
-        system("clear");
-    #endif
+void ClearScreen()
+{
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
 }
 
 void printAsciiArt()
@@ -395,18 +420,24 @@ void printAsciiArt()
 }
 
 // 判断字符是否是中文（适用于UTF-8编码）
-int is_chinese_char(unsigned char c) {
+int is_chinese_char(unsigned char c)
+{
     return (c >= 0x80); // UTF-8 中文字符的首字节通常 >= 0x80
 }
 
 // 计算字符串的实际显示宽度
-int calc_display_width(const char *str) {
+int calc_display_width(const char *str)
+{
     int width = 0;
-    while (*str) {
-        if (is_chinese_char((unsigned char)*str)) {
+    while (*str)
+    {
+        if (is_chinese_char((unsigned char)*str))
+        {
             width += 2; // 中文字符显示宽度为2
             str += 3;   // UTF-8 中文字符占3字节
-        } else {
+        }
+        else
+        {
             width += 1; // 英文字符显示宽度为1
             str++;
         }
@@ -415,10 +446,12 @@ int calc_display_width(const char *str) {
 }
 
 // 输出左对齐的字符串
-void print_left_aligned(const char *str, int target_width) {
+void print_left_aligned(const char *str, int target_width)
+{
     int display_width = calc_display_width(str);
     printf("%s", str); // 输出字符串本身
-    for (int i = 0; i < target_width - display_width; i++) {
+    for (int i = 0; i < target_width - display_width; i++)
+    {
         putchar(' '); // 补充空格
     }
 }
