@@ -176,20 +176,35 @@ void viewTeachers()
     }
     
     // 打印表头，使用指定宽度对齐
+    const char *headers[] = {"ID", "姓名", "性别", "部门", "地址", "电话", "实发工资", "实际收入"};
+    int columnWidths[] = {10, 20, 10, 40, 15, 15, 20, 20};
+    int columnCount = sizeof(headers) / sizeof(headers[0]);
+
+    // 打印表头
     printf("\n教师列表:\n");
-    printf("%-10s %-10s %-10s %-40s %-15s %-15s %-10s\n", 
-           "ID", "姓名", "性别", "部门", "地址", "电话", "实发工资");
+    for (int i = 0; i < columnCount; i++) {
+        print_left_aligned(headers[i], columnWidths[i]);
+    }
+    printf("\n");
+
+    // 打印分隔线
+    for (int i = 0; i < columnCount; i++) {
+        for (int j = 0; j < columnWidths[i]; j++) {
+            putchar('-');
+        }
+    }
+    printf("\n");
     
     // 打印每个教师的信息，保证每列宽度一致
-    for (int i = 0; i < teacherCount; i++)
-    {
-        printf("%-10s %-10s %-10s %-40s %-15s %-15s %-10.2f\n", 
-               teachers[i].teacherID,
-               teachers[i].name,
-               teachers[i].gender,
-               teachers[i].department,
-               teachers[i].address,
-               teachers[i].phone,
+    for (int i = 0; i < teacherCount; i++) {
+        print_left_aligned(teachers[i].teacherID, 10);
+        print_left_aligned(teachers[i].name, 20);
+        print_left_aligned(teachers[i].gender, 10);
+        print_left_aligned(teachers[i].department, 40);
+        print_left_aligned(teachers[i].address, 15);
+        print_left_aligned(teachers[i].phone, 15);
+        printf("%-20.2f %-20.2f\n", 
+               teachers[i].baseSalary + teachers[i].allowance + teachers[i].subsidy, 
                teachers[i].totalSalary);
     }
     char id[20];
@@ -377,6 +392,33 @@ void printAsciiArt()
     printf("| |/\\| | |  __|  | |     | |     | | | | | |\\/| | |  __| \n");
     printf("\\  /\\  / | |____ | |____ | \\__/\\ | |_| | | |  | | | |____ \n");
     printf(" \\/  \\/  \\_____/ \\_____/  \\____/  \\___/  \\_|  |_/ \\_____/ \n");
-    printf("                                                         \n");
-    printf("                                                         \n");
+}
+
+// 判断字符是否是中文（适用于UTF-8编码）
+int is_chinese_char(unsigned char c) {
+    return (c >= 0x80); // UTF-8 中文字符的首字节通常 >= 0x80
+}
+
+// 计算字符串的实际显示宽度
+int calc_display_width(const char *str) {
+    int width = 0;
+    while (*str) {
+        if (is_chinese_char((unsigned char)*str)) {
+            width += 2; // 中文字符显示宽度为2
+            str += 3;   // UTF-8 中文字符占3字节
+        } else {
+            width += 1; // 英文字符显示宽度为1
+            str++;
+        }
+    }
+    return width;
+}
+
+// 输出左对齐的字符串
+void print_left_aligned(const char *str, int target_width) {
+    int display_width = calc_display_width(str);
+    printf("%s", str); // 输出字符串本身
+    for (int i = 0; i < target_width - display_width; i++) {
+        putchar(' '); // 补充空格
+    }
 }

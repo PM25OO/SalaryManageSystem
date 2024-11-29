@@ -42,5 +42,8 @@ void readFromFile();
 void YuanShen();
 void ClearScreen();
 void printAsciiArt();
+int is_chinese_char(unsigned char c);
+int calc_display_width(const char *str);
+void print_left_aligned(const char *str, int target_width);
 
 #endif // TEACHER_H
