@@ -28,7 +28,7 @@ int main()
         printf("3. 删除教师信息\n");
         printf("4. 浏览教师信息\n");
         printf("5. 保存数据\n");
-        printf("0. 退出系统\n");
+        printf("0. 退出系统\n\n");
         printf("请选择操作：");
         if (scanf("%d", &choice) != 1)
         {
