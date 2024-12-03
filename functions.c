@@ -185,7 +185,7 @@ void viewTeachers()
 
     // 打印表头，使用指定宽度对齐
     const char *headers[] = {"ID", "姓名", "性别", "部门", "地址", "电话", "实发工资", "实际收入"};
-    int columnWidths[] = {10, 20, 10, 40, 15, 15, 20, 20};
+    int columnWidths[] = {10, 15, 10, 30, 30, 20, 20, 20};
     int columnCount = sizeof(headers) / sizeof(headers[0]);
 
     // 打印表头
@@ -210,12 +210,12 @@ void viewTeachers()
     for (int i = 0; i < teacherCount; i++)
     {
         print_left_aligned(teachers[i].teacherID, 10);
-        print_left_aligned(teachers[i].name, 20);
+        print_left_aligned(teachers[i].name, 15);
         print_left_aligned(teachers[i].gender, 10);
-        print_left_aligned(teachers[i].department, 40);
-        print_left_aligned(teachers[i].address, 15);
-        print_left_aligned(teachers[i].phone, 15);
-        printf("%-20.2f %-20.2f\n",
+        print_left_aligned(teachers[i].department, 30);
+        print_left_aligned(teachers[i].address, 30);
+        print_left_aligned(teachers[i].phone, 20);
+        printf("%-19.2f %-20.2f\n",
                teachers[i].baseSalary + teachers[i].allowance + teachers[i].subsidy,
                teachers[i].totalSalary);
     }
@@ -234,7 +234,7 @@ void viewTeachers()
         for (int i = 0; i < teacherCount; i++) {
             if (strcmp(teachers[i].teacherID, id) == 0) {
                 found = 1; // 找到教师
-                printf("员工 %s 本月合计扣款 %.2lf 元，其中电话费 %.2f 元，水电费 %.2f 元，卫生费 %.2f 元，房租 %.2f 元。\n",
+                printf("\n员工 %s 本月合计扣款 %.2lf 元，其中电话费 %.2f 元，水电费 %.2f 元，卫生费 %.2f 元，房租 %.2f 元。\n",
                        teachers[i].name, teachers[i].totalDeductions, teachers[i].phoneFee, teachers[i].utilityFee,
                        teachers[i].hygieneFee, teachers[i].rent);
                 break;
