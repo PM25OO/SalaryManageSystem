@@ -14,7 +14,7 @@ Teacher teachers[MAX_TEACHERS];
 
 int main()
 {
-
+    SetConsoleOutputCP(65001);
     int choice;
     readFromFile(); // 启动时从文件加载数据
 
