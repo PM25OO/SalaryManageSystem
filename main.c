@@ -14,7 +14,9 @@ Teacher teachers[MAX_TEACHERS];
 
 int main()
 {
-    SetConsoleOutputCP(65001);
+    #ifdef _WIN32
+        SetConsoleOutputCP(65001);
+    #endif
     int choice;
     readFromFile(); // 启动时从文件加载数据
 
