@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "teacher.h"
+    
 #ifdef _WIN32
 #include <windows.h>
 #else
@@ -14,9 +15,9 @@ Teacher teachers[MAX_TEACHERS];
 
 int main()
 {
-    #ifdef _WIN32
-        SetConsoleOutputCP(65001);
-    #endif
+#ifdef _WIN32
+    SetConsoleOutputCP(65001);
+#endif
     int choice;
     readFromFile(); // 启动时从文件加载数据
 
