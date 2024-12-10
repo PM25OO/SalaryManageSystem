@@ -3,6 +3,13 @@
 #include <stdlib.h>
 #include "teacher.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#include <locale.h>
+#endif
+
 // 输入教师信息
 void inputTeacher()
 {
@@ -398,6 +405,13 @@ void readFromFile()
 void YuanShen()
 {
     printf("原神，启动！\n");
+#ifdef _WIN32
+    Sleep(500);
+    system("start https://ys.mihoyo.com/");
+#elif __linux__
+    sleep(1);
+    system("xdg-open https://ys.mihoyo.com/");
+#endif
 }
 
 void ClearScreen()
