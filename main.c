@@ -16,7 +16,9 @@ Teacher teachers[MAX_TEACHERS];
 int main()
 {
 #ifdef _WIN32
-    SetConsoleOutputCP(65001);
+    SetConsoleOutputCP(65001);  // 设置控制台输出编码为UTF-8
+    HWND hwnd = GetForegroundWindow(); // 获取当前窗口句柄
+    ShowWindow(hwnd, SW_MAXIMIZE);    // 最大化窗口
 #endif
     int choice;
     readFromFile(); // 启动时从文件加载数据
@@ -25,13 +27,13 @@ int main()
     {
         ClearScreen();
         printAsciiArt();
-        printf("\n教师工资管理系统\n\n");
-        printf("1. 输入教师信息\n");
-        printf("2. 修改教师信息\n");
-        printf("3. 删除教师信息\n");
-        printf("4. 浏览教师信息\n");
-        printf("5. 保存数据\n");
-        printf("0. 退出系统\n\n");
+        printf("\n教师工资管理系统\n\n\n");
+        printf("1. 输入教师信息\n\n");
+        printf("2. 修改教师信息\n\n");
+        printf("3. 删除教师信息\n\n");
+        printf("4. 浏览教师信息\n\n");
+        printf("5. 保存数据\n\n");
+        printf("0. 退出系统\n\n\n");
         printf("请选择操作：");
         if (scanf("%d", &choice) != 1)
         {
@@ -62,7 +64,7 @@ int main()
         case 0:
         {
             char confirm;
-            printf("是否保存修改？（y/n）：");
+            printf("是否保存修改？(y/n)");
             if (scanf(" %c", &confirm) != 1)
             {
                 printf("输入无效，将不保存修改。\n");
