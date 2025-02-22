@@ -16,9 +16,9 @@ Teacher teachers[MAX_TEACHERS];
 int main()
 {
 #ifdef _WIN32
-    SetConsoleOutputCP(65001);  // 设置控制台输出编码为UTF-8
+    SetConsoleOutputCP(65001);         // 设置控制台输出编码为UTF-8
     HWND hwnd = GetForegroundWindow(); // 获取当前窗口句柄
-    ShowWindow(hwnd, SW_MAXIMIZE);    // 最大化窗口
+    ShowWindow(hwnd, SW_MAXIMIZE);     // 最大化窗口
 #endif
     int choice;
     readFromFile(); // 启动时从文件加载数据
